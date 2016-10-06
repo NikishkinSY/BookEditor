@@ -3,7 +3,9 @@
 
   "dependencies": {
     "BookEditor_Model": "1.0.0-*",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+    "Microsoft.Extensions.Caching.Abstractions": "1.0.0"
   },
 
   "frameworks": {
