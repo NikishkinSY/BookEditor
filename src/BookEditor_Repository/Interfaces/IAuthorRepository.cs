@@ -6,7 +6,7 @@ using BookEditor_Model;
 
 namespace BookEditor_Repository.Interfaces
 {
-    interface IAuthorRepository: IGenericRepository<Author>
+    public interface IAuthorRepository: IGenericRepository<Author>
     {
     }
 }
