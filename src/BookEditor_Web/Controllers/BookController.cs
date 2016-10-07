@@ -5,37 +5,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BookEditor_Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BookEditor_Model.Context;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace BookEditor_Web.Controllers
 {
     public class BookController : Controller
     {
-        //private readonly IBookRepository _bookRepository;
-        //public BookController(IBookRepository bookRepository)
-        //{
-        //    _bookRepository = bookRepository;
-        //}
-        public DbContext _test;
-        public BookController(DbContext test)
-        {
-            _test = test;
-        }
 
+        private readonly IAuthorRepository _authorRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly ILogger<BookController> _logger;
+
+        public BookController(
+            IAuthorRepository authorRepository,
+            IBookRepository bookRepository, 
+            ILogger<BookController> logger)
+        {
+            _authorRepository = authorRepository;
+            _bookRepository = bookRepository;
+            _logger = logger;
+        }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            try
-            {
-                //var items = _bookRepository.GetAll();
-            }
-            catch (Exception ex)
-            {
-                
-                throw;
-            }
             
             return View();
         }
+
+        
     }
 }

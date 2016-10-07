@@ -13,6 +13,5 @@ namespace BookEditor_Repository
         void Add(TEntity entity);
         void Delete(TEntity entity);
         void Edit(TEntity entity);
-        void Save();
     }
 }

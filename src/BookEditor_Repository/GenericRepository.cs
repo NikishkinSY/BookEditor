@@ -8,7 +8,7 @@ using BookEditor_Model.Context;
 
 namespace BookEditor_Repository
 {
-    public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity> where TEntity : class where TContext : DbContext
+    public abstract class GenericRepository<TContext, TEntity> : IUnitOfWork, IGenericRepository<TEntity> where TEntity : class where TContext : DbContext
     {
         private readonly DbContext _context;
 
@@ -45,7 +45,7 @@ namespace BookEditor_Repository
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Save()
+        public virtual void Commit()
         {
             _context.SaveChanges();
         }

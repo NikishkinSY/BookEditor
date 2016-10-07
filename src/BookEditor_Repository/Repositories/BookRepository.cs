@@ -11,7 +11,7 @@ namespace BookEditor_Repository.Repositories
 {
     public class BookRepository: GenericRepository<DbContext, Book>, IBookRepository
     {
-        public BookRepository(DbContext context)
+        public BookRepository(BookEditorContext context)
             : base(context)
         {
         }

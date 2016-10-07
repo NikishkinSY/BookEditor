@@ -19,25 +19,35 @@ namespace BookEditor_Web
 {
     public class Startup
     {
+        public Startup(IHostingEnvironment env)
+        {
+            // Set up configuration sources.
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true);
+            Configuration = builder.Build();
+        }
+
+        public static IConfigurationRoot Configuration { get; set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("appsettings.json");
-            var connectionStringConfig = builder.Build();
-            var connectionString = connectionStringConfig.GetConnectionString("DefaultConnection");
-            
             services.AddMvc();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddDbContext<BookEditorContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<BookEditorContext>(options => 
+                options.UseSqlServer(Startup.Configuration["ConnectionStrings:DefaultConnection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
+
+            //error handler
+            app.UseExceptionHandler("/Book/Error");
 
             app.UseMvc();
 
