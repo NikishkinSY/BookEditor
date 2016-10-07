@@ -24,7 +24,7 @@ namespace BookEditor_Web.Controllers
         {
             var feature = this.HttpContext.Features.Get<IExceptionHandlerFeature>();
             _logger.LogError("{err}", feature?.Error);
-            return View("~/Views/Shared/Error.cshtml", feature?.Error);
+            return View("~/Views/Shared/Error.cshtml", feature?.Error.Message);
         }
     }
 }

@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using BookEditor_Model.Context;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Diagnostics;
+using BookEditor_Web.Models;
+using AutoMapper;
+using BookEditor_Model;
 
 namespace BookEditor_Web.Controllers
 {
@@ -31,10 +34,37 @@ namespace BookEditor_Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            
+            _bookRepository.GetAll().ToArray();
             return View();
         }
 
-        
+        [HttpGet]
+        public async Task<IEnumerable<BookViewModel>> Get()
+        {
+            return await Task.Run(() => {
+                try
+                {
+                    return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll());
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            });
+        }
+
+        public IEnumerable<Book> G()
+        {
+            try
+            {
+                return _bookRepository.GetAll().ToArray();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
     }
 }

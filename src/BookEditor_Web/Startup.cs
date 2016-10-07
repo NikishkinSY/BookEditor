@@ -14,6 +14,7 @@ using BookEditor_Model.Context;
 using BookEditor_Web.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using BookEditor_Web.Modules;
 
 namespace BookEditor_Web
 {
@@ -47,7 +48,7 @@ namespace BookEditor_Web
             loggerFactory.AddConsole();
 
             //error handler
-            app.UseExceptionHandler("/Book/Error");
+            app.UseExceptionHandler("/Error/Error");
 
             app.UseMvc();
 
@@ -57,6 +58,9 @@ namespace BookEditor_Web
                     name: "default",
                     template: "{controller=Book}/{action=Index}/{id?}");
             });
+
+            //create maps
+            Automapper.Configurate();
         }
     }
 }

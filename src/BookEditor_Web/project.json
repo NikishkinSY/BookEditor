@@ -13,7 +13,8 @@
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "NETStandard.Library": "1.6.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1"
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+    "AutoMapper": "5.1.1"
   },
 
   "tools": {
