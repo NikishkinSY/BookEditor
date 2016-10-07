@@ -6,6 +6,8 @@
         'ngMaterial',
         'ngMessages',
         // Custom modules 
+        'app.core',
+        'app.cars',
         // 3rd Party Modules
     ]);
 })();

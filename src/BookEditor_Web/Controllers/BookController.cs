@@ -11,22 +11,20 @@ using Microsoft.AspNetCore.Diagnostics;
 using BookEditor_Web.Models;
 using AutoMapper;
 using BookEditor_Model;
+using BookEditor_Model.Entities;
 
 namespace BookEditor_Web.Controllers
 {
+    [Route("api/[controller]")]
     public class BookController : Controller
     {
-
-        private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;
         private readonly ILogger<BookController> _logger;
 
         public BookController(
-            IAuthorRepository authorRepository,
             IBookRepository bookRepository, 
             ILogger<BookController> logger)
         {
-            _authorRepository = authorRepository;
             _bookRepository = bookRepository;
             _logger = logger;
         }
@@ -34,37 +32,31 @@ namespace BookEditor_Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            _bookRepository.GetAll().ToArray();
             return View();
         }
 
         [HttpGet]
         public async Task<IEnumerable<BookViewModel>> Get()
         {
-            return await Task.Run(() => {
-                try
-                {
-                    return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll());
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-            });
+            return await Task.Run(() => { return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll()); });
         }
 
-        public IEnumerable<Book> G()
+        [HttpPost]
+        public async Task Add([FromBody]BookViewModel book)
         {
-            try
-            {
-                return _bookRepository.GetAll().ToArray();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            await Task.Run(() => { _bookRepository.Add(Mapper.Map<Book>(book)); });
         }
 
+        [HttpPost]
+        public async Task Edit([FromBody]BookViewModel book)
+        {
+            await Task.Run(() => { _bookRepository.Edit(Mapper.Map<Book>(book)); });
+        }
 
+        [HttpPost("{id}")]
+        public async Task Delete(Guid id)
+        {
+            await Task.Run(() => { _bookRepository.Delete(id); });
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BookEditor_Model;
 using BookEditor_Web.Models;
+using BookEditor_Model.Entities;
 
 namespace BookEditor_Web.Modules
 {

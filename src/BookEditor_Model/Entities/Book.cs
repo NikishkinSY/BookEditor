@@ -1,12 +1,13 @@
-﻿using System;
+﻿using BookEditor_Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookEditor_Model
+namespace BookEditor_Model.Entities
 {
-    public class Book
+    public class Book: IEntity
     {
         [Key]
         public Guid Id { get; set; }
