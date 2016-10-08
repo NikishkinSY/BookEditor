@@ -35,9 +35,10 @@ namespace BookEditor_Repository
             return query;
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual int Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            return entity.Id;
         }
 
         public virtual void Delete(TEntity entity)

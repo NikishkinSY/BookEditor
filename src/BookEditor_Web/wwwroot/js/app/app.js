@@ -4,6 +4,7 @@
     angular.module('app', [
         // Angular modules 
         'ngMaterial',
+        'ngCookies',
         'ngMessages',
         // Custom modules 
         'app.core',

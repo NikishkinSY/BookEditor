@@ -12,6 +12,9 @@ using BookEditor_Web.Models;
 using AutoMapper;
 using BookEditor_Model;
 using BookEditor_Model.Entities;
+using System.Net.Http;
+using System.Net;
+using BookEditor_Web.Modules;
 
 namespace BookEditor_Web.Controllers
 {
@@ -38,38 +41,79 @@ namespace BookEditor_Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<BookViewModel>> Get()
         {
-            
-                return await Task.Run(() => {
-                    try
-                    {
-                        return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll());
-                    }
-                    catch (Exception ex)
-                    {
+            return await Task.Run(() => {
+                try
+                {
+                    return _bookRepository.GetAll().Select(x => Automapper.Map(x));
+                }
+                catch (Exception ex)
+                {
 
-                    }
-                    return null;
-                });
+                }
+
+                return null;
+            });
             
             
         }
 
         [HttpPost]
-        public async Task Add([FromBody]BookViewModel book)
+        public async Task<int> Add([FromBody]BookViewModel book)
         {
-            await Task.Run(() => { _bookRepository.Add(Mapper.Map<Book>(book)); });
+            //if (ModelState.IsValid)
+            //{
+            return await Task.Run(() => {
+                try
+                {
+                    var _book = Automapper.Map(book);
+                    _bookRepository.Add(_book);
+                    _bookRepository.Commit();
+                    return _book.Id;
+                }
+                catch (Exception ex)
+                {
+                return -1;
+                }
+                
+            });
+            //}
+            //else
+            //{
+
+            //}
+            
         }
 
         [HttpPost]
         public async Task Edit([FromBody]BookViewModel book)
         {
-            await Task.Run(() => { _bookRepository.Edit(Mapper.Map<Book>(book)); });
+            //if (ModelState.IsValid)
+            //{
+                await Task.Run(() => {
+                    try
+                    {
+                        _bookRepository.Edit(Automapper.Map(book));
+                        _bookRepository.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                });
+            //}
+            //else
+            //{
+
+            //}
         }
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task Delete(int id)
         {
-            await Task.Run(() => { _bookRepository.Delete(id); });
+            await Task.Run(() => {
+                _bookRepository.Delete(id);
+                _bookRepository.Commit();
+            });
         }
     }
 }

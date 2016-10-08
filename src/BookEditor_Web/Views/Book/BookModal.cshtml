@@ -1,45 +1,71 @@
-﻿<div id="BookModal" class="modal fade">
+﻿<div id="bookModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{cars.title}}</h4>
+                <h4 class="modal-title">{{book.title}}</h4>
             </div>
-            <form ng-submit="cars.saveCar()" name="formAddBook">
+            <form ng-submit="book.saveBook()" name="formBookModal">
                 <div class="modal-body">
                     <div class="modal-row row">
-                        <div class="col-xs-2">Year</div>
-                        <div class="col-xs-10">
-                            <input class="form-control" name="year" type="number" step="1" max="2100" ng-model="cars.tempCar.year" required />
-                            <div ng-messages="formAddBook.year.$error">
+                        <div class="col-xs-3">Header</div>
+                        <div class="col-xs-9">
+                            <input class="form-control" name="header" maxlength="30" ng-model="book.tempBook.header" required />
+                            <div ng-messages="formBookModal.header.$error">
                                 <div class="modal-error" ng-message="required">This field is required</div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-row row">
-                        <div class="col-xs-2">Description</div>
-                        <div class="col-xs-10">
-                            <input class="form-control" name="description" type="text" ng-model="cars.tempCar.description" />
+                        <div class="col-xs-3">Page count</div>
+                        <div class="col-xs-9">
+                            <input class="form-control" name="pageCount" type="number" step="1" min="0" max="10000" ng-model="book.tempBook.pageCount" required />
+                            <div ng-messages="formBookModal.pageCount.$error">
+                                <div class="modal-error" ng-message="required">This field is required</div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-row row">
+                        <div class="col-xs-3">Publishing house</div>
+                        <div class="col-xs-9">
+                            <input class="form-control" name="publishingHouseName" maxlength="30" ng-model="book.tempBook.publishingHouseName" />
+                        </div>
+                    </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-3">Publish year</div>
+                        <div class="col-xs-9">
+                            <input class="form-control" name="publishYear" type="number" step="1" min="1800" max="2100" ng-model="book.tempBook.publishYear" required />
+                        </div>
+                    </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-3">ISBN</div>
+                        <div class="col-xs-9">
+                            <input class="form-control" name="isbn" ng-model="book.tempBook.isbn" ng-pattern="book.isbnRegex" />
+                        </div>
+                    </div>
+
+
+                    @*<div class="modal-row row">
                         <div class="col-xs-2">Driver</div>
                         <div class="col-xs-10">
                             <select class="form-control" name="driver" ng-model="cars.tempCar.driverID"
                                     ng-options="driver.id as driver.name for driver in cars.drivers" required>
                                 <option></option>
                             </select>
-                            <div ng-messages="formAddBook.driver.$error">
+                            <div ng-messages="formBookModal.driver.$error">
                                 <div class="modal-error" ng-message="required">This field is required</div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Save">
                     <input type="button" class="btn btn-danger" value="Delete"
-                           ng-disabled="cars.isNew" ng-true-value="false" ng-false-value="true"
-                           confirmed-click="cars.deleteCar()" ng-confirm-click="Delete this car?">
+                           ng-disabled="book.isNewBook" ng-true-value="false" ng-false-value="true"
+                           confirmed-click="book.deleteBook()" ng-confirm-click="Delete this book?">
+                    <input type="button" class="btn btn-primary" value="Cancel"
+                           ng-true-value="false" ng-false-value="true"
+                           confirmed-click="book.closeModal()" ng-confirm-click="Cancel?">
                 </div>
             </form>
         </div>

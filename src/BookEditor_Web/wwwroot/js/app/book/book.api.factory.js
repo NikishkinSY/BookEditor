@@ -12,7 +12,7 @@
             getBooks: getBooks,
             getBook: getBook,
             addBook: addBook,
-            updateBook: updateBook,
+            editBook: editBook,
             deleteBook: deleteBook
         };
 
@@ -42,7 +42,7 @@
 
         function addBook(book) {
             return $http({
-                url: "/book",
+                url: "/book/add",
                 method: "POST",
                 data: book
             })
@@ -52,9 +52,9 @@
             .catch(console.log.bind(console));
         };
 
-        function updateBook(book) {
+        function editBook(book) {
             return $http({
-                url: "/book",
+                url: "/book/edit",
                 method: "POST",
                 data: book
             })
@@ -66,7 +66,7 @@
 
         function deleteBook(id) {
             return $http({
-                url: "/book/" + id,
+                url: "/book/delete/" + id,
                 method: "POST"
             })
             .then(function (response) {

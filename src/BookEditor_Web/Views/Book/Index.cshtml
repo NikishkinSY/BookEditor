@@ -11,7 +11,7 @@
 
 
 <div class="expenses" ng-controller="BookController as book" ng-init="book.getBooks()">
-    <input class="btn btn-primary expenses-add" type="button" data-toggle="modal" data-target="#addBookModal" value="Add book" />
+    <input class="btn btn-primary" type="button" data-toggle="modal" data-target="#bookModal" value="Add book" ng-click="book.addBook()" />
 
     <table class="table table-hover">
         <thead>
@@ -22,20 +22,21 @@
                 <th ng-click="book.sort('publishYear')">Publish year</th>
                 <th>ISBN</th>
                 <th>Image</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="book in book.books | orderBy:book.sortPredicateBook:book.reverse">
-                <td>{{ book.header }}</td>
-                <td>{{ book.pageCount }}</td>
-                <td>{{ book.publishingHouseName }}</td>
-                <td>{{ book.publishYear }}</td>
-                <td>{{ book.isbn }}</td>
-                <td>{{ book.image }}</td>
-                <td><input type="button" class="btn btn-primary" data-toggle="modal" data-target="#CarModal" ng-click="book.editBook(book, $index)" value="E" /></td>
+            <tr ng-repeat="item in book.books | orderBy:book.sortPredicateBook:book.reverse">
+                <td>{{ item.header }}</td>
+                <td>{{ item.pageCount }}</td>
+                <td>{{ item.publishingHouseName }}</td>
+                <td>{{ item.publishYear }}</td>
+                <td>{{ item.isbn }}</td>
+                <td>{{ item.image }}</td>
+                <td><input type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookModal" value="E" ng-click="book.editBook(item, $index)" /></td>
             </tr>
         </tbody>
     </table>
 
-    @*@Html.Partial("addBookModal")*@
+    @Html.Partial("bookModal")
 </div>

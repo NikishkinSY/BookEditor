@@ -12,7 +12,7 @@ namespace BookEditor_Repository
         IQueryable<TEntity> GetAll();
         TEntity GetById(int id);
         IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
-        void Add(TEntity entity);
+        int Add(TEntity entity);
         void Delete(TEntity entity);
         void Delete(int id);
         void Edit(TEntity entity);
