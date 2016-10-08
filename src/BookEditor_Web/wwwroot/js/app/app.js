@@ -7,7 +7,7 @@
         'ngMessages',
         // Custom modules 
         'app.core',
-        'app.cars',
+        'app.book',
         // 3rd Party Modules
     ]);
 })();

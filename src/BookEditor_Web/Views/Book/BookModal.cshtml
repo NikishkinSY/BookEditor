@@ -1,0 +1,47 @@
+﻿<div id="BookModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{cars.title}}</h4>
+            </div>
+            <form ng-submit="cars.saveCar()" name="formAddBook">
+                <div class="modal-body">
+                    <div class="modal-row row">
+                        <div class="col-xs-2">Year</div>
+                        <div class="col-xs-10">
+                            <input class="form-control" name="year" type="number" step="1" max="2100" ng-model="cars.tempCar.year" required />
+                            <div ng-messages="formAddBook.year.$error">
+                                <div class="modal-error" ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-2">Description</div>
+                        <div class="col-xs-10">
+                            <input class="form-control" name="description" type="text" ng-model="cars.tempCar.description" />
+                        </div>
+                    </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-2">Driver</div>
+                        <div class="col-xs-10">
+                            <select class="form-control" name="driver" ng-model="cars.tempCar.driverID"
+                                    ng-options="driver.id as driver.name for driver in cars.drivers" required>
+                                <option></option>
+                            </select>
+                            <div ng-messages="formAddBook.driver.$error">
+                                <div class="modal-error" ng-message="required">This field is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Save">
+                    <input type="button" class="btn btn-danger" value="Delete"
+                           ng-disabled="cars.isNew" ng-true-value="false" ng-false-value="true"
+                           confirmed-click="cars.deleteCar()" ng-confirm-click="Delete this car?">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

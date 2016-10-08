@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('app.books')
-        .factory('booksApi', booksApi);
+        .module('app.book')
+        .factory('bookApi', bookApi);
 
-    booksApi.$inject = ['$http'];
+    bookApi.$inject = ['$http'];
 
-    function booksApi($http) {
+    function bookApi($http) {
         var service = {
             getBooks: getBooks,
             getBook: getBook,
@@ -20,7 +20,7 @@
 
         function getBooks() {
             return $http({
-                url: "/api/Book",
+                url: "/book/get",
                 method: "GET",
             })
             .then(function (response) {
@@ -31,7 +31,7 @@
 
         function getBook(id) {
             return $http({
-                url: "/api/Book/" + id,
+                url: "/book/" + id,
                 method: "GET",
             })
             .then(function (response) {
@@ -42,7 +42,7 @@
 
         function addBook(book) {
             return $http({
-                url: "/api/Book",
+                url: "/book",
                 method: "POST",
                 data: book
             })
@@ -54,7 +54,7 @@
 
         function updateBook(book) {
             return $http({
-                url: "/api/Book",
+                url: "/book",
                 method: "POST",
                 data: book
             })
@@ -66,7 +66,7 @@
 
         function deleteBook(id) {
             return $http({
-                url: "/api/Book/" + id,
+                url: "/book/" + id,
                 method: "POST"
             })
             .then(function (response) {

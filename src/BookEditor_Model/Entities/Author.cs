@@ -10,7 +10,7 @@ namespace BookEditor_Model.Entities
     public class Author: IEntity
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(20)]
         public string FirstName { get; set; }
@@ -18,5 +18,7 @@ namespace BookEditor_Model.Entities
         [Required]
         [MaxLength(20)]
         public string SecondName { get; set; }
+
+        public ICollection<BookAuthor> BookAuthors { get; set; }
     }
 }

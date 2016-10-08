@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BookEditor_Repository
 {
-    public interface IGenericRepository<TEntity> where TEntity : class, IEntity
+    public interface IGenericRepository<TEntity> : IUnitOfWork where TEntity : class, IEntity
     {
         IQueryable<TEntity> GetAll();
-        TEntity GetById(Guid id);
+        TEntity GetById(int id);
         IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
         void Add(TEntity entity);
         void Delete(TEntity entity);
-        void Delete(Guid id);
+        void Delete(int id);
         void Edit(TEntity entity);
     }
 }

@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "_Layout";
 }
+
+<environment names="Development">
+    <link href="~/css/books.css" rel="stylesheet" />
+</environment>
+<environment names="Staging,Production">
+    <link href="~/css/books.css" rel="stylesheet" asp-append-version="true" />
+</environment>
+
+
+<div class="expenses" ng-controller="BookController as book" ng-init="book.getBooks()">
+    <input class="btn btn-primary expenses-add" type="button" data-toggle="modal" data-target="#addBookModal" value="Add book" />
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th ng-click="book.sort('header')">Header</th>
+                <th>Page Count</th>
+                <th>Publishing house</th>
+                <th ng-click="book.sort('publishYear')">Publish year</th>
+                <th>ISBN</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="book in book.books | orderBy:book.sortPredicateBook:book.reverse">
+                <td>{{ book.header }}</td>
+                <td>{{ book.pageCount }}</td>
+                <td>{{ book.publishingHouseName }}</td>
+                <td>{{ book.publishYear }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.image }}</td>
+                <td><input type="button" class="btn btn-primary" data-toggle="modal" data-target="#CarModal" ng-click="book.editBook(book, $index)" value="E" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    @*@Html.Partial("addBookModal")*@
+</div>

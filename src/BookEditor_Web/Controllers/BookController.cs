@@ -15,14 +15,13 @@ using BookEditor_Model.Entities;
 
 namespace BookEditor_Web.Controllers
 {
-    [Route("api/[controller]")]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
         private readonly ILogger<BookController> _logger;
 
         public BookController(
-            IBookRepository bookRepository, 
+            IBookRepository bookRepository,
             ILogger<BookController> logger)
         {
             _bookRepository = bookRepository;
@@ -32,13 +31,27 @@ namespace BookEditor_Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.Title = "Books";
             return View();
         }
-
+        
         [HttpGet]
         public async Task<IEnumerable<BookViewModel>> Get()
         {
-            return await Task.Run(() => { return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll()); });
+            
+                return await Task.Run(() => {
+                    try
+                    {
+                        return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll());
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    return null;
+                });
+            
+            
         }
 
         [HttpPost]
@@ -54,7 +67,7 @@ namespace BookEditor_Web.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task Delete(Guid id)
+        public async Task Delete(int id)
         {
             await Task.Run(() => { _bookRepository.Delete(id); });
         }

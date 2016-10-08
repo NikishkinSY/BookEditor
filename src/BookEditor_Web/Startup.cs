@@ -15,6 +15,7 @@ using BookEditor_Web.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BookEditor_Web.Modules;
+using Newtonsoft.Json.Serialization;
 
 namespace BookEditor_Web
 {
@@ -35,7 +36,13 @@ namespace BookEditor_Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddDbContext<BookEditorContext>(options => 
@@ -43,12 +50,14 @@ namespace BookEditor_Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole();
 
             //error handler
             app.UseExceptionHandler("/Error/Error");
+
+            app.UseStaticFiles();
 
             app.UseMvc();
 
@@ -61,6 +70,12 @@ namespace BookEditor_Web
 
             //create maps
             Automapper.Configurate();
+
+            //sample data
+            var sampleData = new SampleData(
+                serviceProvider.GetService<IBookRepository>(),
+                serviceProvider.GetService<IAuthorRepository>());
+            sampleData.Seed();
         }
     }
 }

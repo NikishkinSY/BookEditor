@@ -9,9 +9,9 @@ using BookEditor_Model.Entities;
 
 namespace BookEditor_Repository
 {
-    public abstract class GenericRepository<TContext, TEntity> : IUnitOfWork, IGenericRepository<TEntity> where TEntity : class, IEntity where TContext : DbContext
+    public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity where TContext : DbContext
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
 
         protected GenericRepository(DbContext context)
         {
@@ -24,7 +24,7 @@ namespace BookEditor_Repository
             return query;
         }
 
-        public TEntity GetById(Guid id)
+        public TEntity GetById(int id)
         {
             return _context.Set<TEntity>().First(x => x.Id == id);
         }
@@ -45,7 +45,7 @@ namespace BookEditor_Repository
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public virtual void Delete(Guid id)
+        public virtual void Delete(int id)
         {
             Delete(GetById(id));
         }

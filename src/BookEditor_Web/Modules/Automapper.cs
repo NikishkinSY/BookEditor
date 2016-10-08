@@ -13,11 +13,18 @@ namespace BookEditor_Web.Modules
     {
         public static void Configurate()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Book, BookViewModel>());
-            Mapper.Initialize(cfg => cfg.CreateMap<BookViewModel, Book>());
 
-            Mapper.Initialize(cfg => cfg.CreateMap<Author, AuthorViewModel>());
-            Mapper.Initialize(cfg => cfg.CreateMap<AuthorViewModel, Author>());
+            Mapper.Initialize(cfg => cfg.CreateMap<Book, BookViewModel>()
+                .ForSourceMember(x => x.BookAuthors, opt => opt.Ignore()));
+
+
+
+            //Mapper.Initialize(cfg => cfg.CreateMap<BookViewModel, Book>());
+                
+
+            //Mapper.Initialize(cfg => cfg.CreateMap<Author, AuthorViewModel>()
+            //    .ForSourceMember(x => x.BookAuthors, opt => opt.Ignore()));
+            //Mapper.Initialize(cfg => cfg.CreateMap<AuthorViewModel, Author>());
         }
     }
 }

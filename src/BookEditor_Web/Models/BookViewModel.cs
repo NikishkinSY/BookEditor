@@ -8,9 +8,9 @@ namespace BookEditor_Web.Models
 {
     public class BookViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Header { get; set; }
-        public ICollection<AuthorViewModel> Authors { get; set; }
+        //public ICollection<AuthorViewModel> Authors { get; set; }
         public int PageCount { get; set; }
         public string PublishingHouseName { get; set; }
         public int PublishYear { get; set; }

@@ -10,13 +10,13 @@ namespace BookEditor_Model.Entities
     public class Book: IEntity
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(30)]
         public string Header { get; set; }
 
-        public ICollection<Author> Authors { get; set; }
+        public ICollection<BookAuthor> BookAuthors { get; set; }
 
         [Required]
         [Range(0,10000)]

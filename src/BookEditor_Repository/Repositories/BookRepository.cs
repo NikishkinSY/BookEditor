@@ -17,6 +17,10 @@ namespace BookEditor_Repository.Repositories
         {
         }
 
+        public void AddAuthorToBook(Book book, Author author)
+        {
+            ((BookEditorContext)_context).BookAuthor.Add(new BookAuthor(book, author));
+        }
         
     }
 }
