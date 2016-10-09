@@ -24,12 +24,12 @@ namespace BookEditor_Repository
             return query;
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return _context.Set<TEntity>().First(x => x.Id == id);
         }
 
-        public IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
+        public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>().Where(predicate);
             return query;

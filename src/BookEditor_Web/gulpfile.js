@@ -19,7 +19,9 @@ var itemsToCopy = {
     
     './node_modules/bootstrap/dist/css/bootstrap.min.css': paths.webroot + 'lib/bootstrap',
     './node_modules/bootstrap/dist/js/bootstrap.min.js': paths.webroot + 'lib/bootstrap',
-
+    './node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js': paths.webroot + 'lib/angular',
+    './node_modules/angular-base64-upload/dist/angular-base64-upload.min.js': paths.webroot + 'lib/angular',
+    
     './node_modules/jquery/dist/jquery.min.js': paths.webroot + 'lib/jquery'
 };
 

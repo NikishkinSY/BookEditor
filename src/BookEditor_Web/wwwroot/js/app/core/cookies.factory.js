@@ -9,12 +9,10 @@
 
     function cookiesFactory($cookies) {
 
-        var service = {
+        return {
             get: get,
             put: put
         };
-
-        return service;
 
         function get(key) {
             return $cookies.get(key);

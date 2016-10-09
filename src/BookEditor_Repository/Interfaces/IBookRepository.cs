@@ -9,6 +9,5 @@ namespace BookEditor_Repository.Interfaces
 {
     public interface IBookRepository : IGenericRepository<Book>
     {
-        void AddAuthorToBook(Book book, Author author);
     }
 }

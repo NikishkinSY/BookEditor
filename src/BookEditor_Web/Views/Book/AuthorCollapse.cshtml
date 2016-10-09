@@ -1,0 +1,41 @@
+﻿<div id="authorCollapse" class="collapse modal-row row" ng-controller="AuthorController as author" ng-init="author.getAuthors()">
+    <form ng-submit="author.addAuthor(formAuthor.$valid)" name="formAuthor">
+        <div class="modal-row row">
+            <div class="col-xs-3">Add author</div>
+            <div class="col-xs-3">
+                <input class="form-control" name="firstName" maxlength="20" ng-model="author.tempAuthor.firstName" required/>
+            </div>
+            <div class="col-xs-1" ng-messages="formAuthor.firstName.$error">
+                <div class="modal-error" ng-message="required">*</div>
+            </div>
+            <div class="col-xs-3">
+                <input class="form-control" name="secondName" maxlength="20" ng-model="author.tempAuthor.secondName" required/>
+            </div>
+            <div class="col-xs-1" ng-messages="formAuthor.secondName.$error">
+                <div class="modal-error" ng-message="required">*</div>
+            </div>
+            <div class="col-xs-1 author-btn-add">
+                <input type="submit" class="btn btn-primary" value="+">
+            </div>
+        </div>
+    </form>
+
+    <div class="author-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Second name</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in author.authors">
+                    <td>{{ item.firstName }}</td>
+                    <td>{{ item.secondName }}</td>
+                    <td><input type="button" class="btn btn-danger" value="X" confirmed-click="author.deleteAuthor(item.id)" ng-confirm-click="Delete?" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

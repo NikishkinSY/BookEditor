@@ -2,23 +2,22 @@
     'use strict';
 
     angular
-        .module('app.book')
-        .factory('bookApi', bookApi);
+        .module('app.author')
+        .factory('authorApi', authorApi);
 
-    bookApi.$inject = ['$http'];
+    authorApi.$inject = ['$http'];
 
-    function bookApi($http) {
+    function authorApi($http) {
         return {
-            getBooks: getBooks,
-            getBook: getBook,
-            addBook: addBook,
-            editBook: editBook,
-            deleteBook: deleteBook
+            getAuthors: getAuthors,
+            addAuthor: addAuthor,
+            editAuthor: editAuthor,
+            deleteAuthor: deleteAuthor
         };
 
-        function getBooks() {
+        function getAuthors() {
             return $http({
-                url: "/book/get",
+                url: "/author/get",
                 method: "GET",
             })
             .then(function (response) {
@@ -27,22 +26,22 @@
             .catch(console.log.bind(console));
         };
 
-        function getBook(id) {
-            return $http({
-                url: "/book/" + id,
-                method: "GET",
-            })
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(console.log.bind(console));
-        };
+        //function getBook(id) {
+        //    return $http({
+        //        url: "/book/" + id,
+        //        method: "GET",
+        //    })
+        //    .then(function (response) {
+        //        return response.data;
+        //    })
+        //    .catch(console.log.bind(console));
+        //};
 
-        function addBook(book) {
+        function addAuthor(author) {
             return $http({
-                url: "/book/add",
+                url: "/author/add",
                 method: "POST",
-                data: book
+                data: author
             })
             .then(function (response) {
                 return response.data;
@@ -50,11 +49,11 @@
             .catch(console.log.bind(console));
         };
 
-        function editBook(book) {
+        function editAuthor(author) {
             return $http({
-                url: "/book/edit",
+                url: "/author/edit",
                 method: "POST",
-                data: book
+                data: author
             })
             .then(function (response) {
                 return response.data;
@@ -62,9 +61,9 @@
             .catch(console.log.bind(console));
         };
 
-        function deleteBook(id) {
+        function deleteAuthor(id) {
             return $http({
-                url: "/book/delete/" + id,
+                url: "/author/delete/" + id,
                 method: "POST"
             })
             .then(function (response) {

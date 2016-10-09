@@ -21,10 +21,10 @@ namespace BookEditor_Web.Modules
                 PublishingHouseName = bookViewModel.PublishingHouseName,
                 PublishYear = bookViewModel.PublishYear,
                 ISBN = bookViewModel.ISBN,
-                Image = bookViewModel.Image
+                Image = !String.IsNullOrEmpty(bookViewModel.Base64Image.Base64) ? Convert.FromBase64String(bookViewModel.Base64Image.Base64) : null
             };
 
-            book.BookAuthors = bookViewModel.Authors?.Select(x => new BookAuthor(book, Map(x))).ToList();
+            book.BookAuthors = bookViewModel.Authors?.Select(x => new BookAuthor(book, x.Id)).ToList();
 
             return book;
         }
@@ -39,10 +39,10 @@ namespace BookEditor_Web.Modules
                 PublishingHouseName = book.PublishingHouseName,
                 PublishYear = book.PublishYear,
                 ISBN = book.ISBN,
-                Image = book.Image,
+                Base64Image = new Image() { Base64 = book.Image != null ? Convert.ToBase64String(book.Image) : null },
             };
-            
-            bookViewModel.Authors = book.BookAuthors?.Select(x => Map(x.Author));
+
+            if (book.BookAuthors != null) bookViewModel.Authors = book.BookAuthors?.Select(x => new AuthorViewModel(x.AuthorId)).ToList();
             return bookViewModel;
         }
 

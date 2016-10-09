@@ -4,58 +4,72 @@
             <div class="modal-header">
                 <h4 class="modal-title">{{book.title}}</h4>
             </div>
-            <form ng-submit="book.saveBook()" name="formBookModal">
+            <form ng-submit="book.saveBook(formBookModal.$valid)" name="formBookModal">
                 <div class="modal-body">
                     <div class="modal-row row">
                         <div class="col-xs-3">Header</div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-8">
                             <input class="form-control" name="header" maxlength="30" ng-model="book.tempBook.header" required />
-                            <div ng-messages="formBookModal.header.$error">
-                                <div class="modal-error" ng-message="required">This field is required</div>
-                            </div>
+                        </div>
+                        <div class="col-xs-1" ng-messages="formBookModal.header.$error">
+                            <div class="modal-error" ng-message="required">*</div>
                         </div>
                     </div>
                     <div class="modal-row row">
                         <div class="col-xs-3">Page count</div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-8">
                             <input class="form-control" name="pageCount" type="number" step="1" min="0" max="10000" ng-model="book.tempBook.pageCount" required />
-                            <div ng-messages="formBookModal.pageCount.$error">
-                                <div class="modal-error" ng-message="required">This field is required</div>
-                            </div>
+                        </div>
+                        <div class="col-xs-1" ng-messages="formBookModal.pageCount.$error">
+                            <div class="modal-error" ng-message="required">*</div>
                         </div>
                     </div>
                     <div class="modal-row row">
                         <div class="col-xs-3">Publishing house</div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-8">
                             <input class="form-control" name="publishingHouseName" maxlength="30" ng-model="book.tempBook.publishingHouseName" />
                         </div>
                     </div>
                     <div class="modal-row row">
                         <div class="col-xs-3">Publish year</div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-8">
                             <input class="form-control" name="publishYear" type="number" step="1" min="1800" max="2100" ng-model="book.tempBook.publishYear" required />
+                        </div>
+                        <div class="col-xs-1" ng-messages="formBookModal.publishYear.$error">
+                            <div class="modal-error" ng-message="required">*</div>
                         </div>
                     </div>
                     <div class="modal-row row">
                         <div class="col-xs-3">ISBN</div>
-                        <div class="col-xs-9">
-                            <input class="form-control" name="isbn" ng-model="book.tempBook.isbn" ng-pattern="book.isbnRegex" />
+                        <div class="col-xs-8">
+                            <input class="form-control" name="isbn" ng-model="book.tempBook.isbn" ng-pattern="book.isbnRegex"/>
+                            <div ng-messages="formBookModal.isbn.$error">
+                                <div class="modal-error" ng-message="pattern">Format: XXX-X-XXX-XXXXX-X or X-XXX-XXXXX-X</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-3">Image</div>
+                        <div class="col-xs-3">
+                            <img class="modal-image" src="data:image/jpeg;base64, {{ book.tempBook.base64Image.base64 }}" />
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="file" ng-model="book.tempBook.base64Image" base-sixty-four-input accept="image/jpeg">
                         </div>
                     </div>
 
-
-                    @*<div class="modal-row row">
-                        <div class="col-xs-2">Driver</div>
-                        <div class="col-xs-10">
-                            <select class="form-control" name="driver" ng-model="cars.tempCar.driverID"
-                                    ng-options="driver.id as driver.name for driver in cars.drivers" required>
-                                <option></option>
-                            </select>
-                            <div ng-messages="formBookModal.driver.$error">
-                                <div class="modal-error" ng-message="required">This field is required</div>
-                            </div>
+                    <div class="modal-row row">
+                        <div class="col-xs-3">Authors</div>
+                        <div class="col-xs-3" ng-dropdown-multiselect=""
+                             options="book.authors"
+                             selected-model="book.tempBook.authors"
+                             extra-settings="{displayProp: 'fullName', idProp: 'id'}"></div>
+                        <div class="col-xs-6">
+                            <a href="#" data-toggle="collapse" data-target="#authorCollapse">Add new author</a>
                         </div>
-                    </div>*@
+                    </div>
+
+                    
 
                 </div>
                 <div class="modal-footer">
@@ -68,6 +82,8 @@
                            confirmed-click="book.closeModal()" ng-confirm-click="Cancel?">
                 </div>
             </form>
+
+            @Html.Partial("authorCollapse")
         </div>
     </div>
 </div>

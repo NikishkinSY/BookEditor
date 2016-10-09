@@ -5,9 +5,9 @@
         .module('app.book')
         .controller('BookController', Book);
 
-    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory'];
+    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory', 'authorApi', 'shareService'];
 
-    function Book(bookApi, cookiesFactory, commonFactory) {
+    function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService) {
         var vm = this;
         vm.newBook = {};
         vm.books = [];
@@ -18,8 +18,10 @@
         vm.isNewBook = true;
         vm.title = '';
 
-        vm.isbnRegex = '^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0 - 9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0 - 9]{1,5}[-\ ]?[0 - 9]+[-\ ]?[0 - 9]+[-\ ]?[0 - 9X]$';
+        vm.authors = shareService.authors;
         
+        vm.isbnRegex = '^(?:ISBN(?:-1[03])?:?\ )?(?=[-0-9\ ]{17}$|[-0-9X\ ]{13}$|[0-9X]{10}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?(?:[0-9]+[-\ ]?){2}[0-9X]$';
+
         vm.timelifeCookie = 30;
         vm.sortPredicateBook = cookiesFactory.get('predicate');
         vm.reverse = cookiesFactory.get('reverse') === 'true';
@@ -32,19 +34,22 @@
         };
 
         vm.addBook = function () {
-            vm.tempBook = {};
+            vm.tempBook = { authors:[] };
             vm.isNewBook = true;
             vm.title = 'Add new book';
         };
 
-        vm.editBook = function (book, index) {
+        vm.editBook = function (book) {
             vm.tempBook = {};
             commonFactory.copyProperties(book, vm.tempBook);
             vm.isNewBook = false;
             vm.title = 'Edit book';
         };
 
-        vm.saveBook = function () {
+        vm.saveBook = function (valid) {
+            if (!valid)
+                return;
+
             if (vm.isNewBook) {
                 bookApi.addBook(vm.tempBook)
                 .then(function (response) {
@@ -53,7 +58,7 @@
                     commonFactory.closeModal(vm.modalName);
                 });
             } else {
-                commonFactory.copyProperties(vm.tempBook, findById(vm.tempBook.id));
+                commonFactory.copyProperties(vm.tempBook, commonFactory.findById(vm.books, vm.tempBook.id));
                 bookApi.editBook(vm.tempBook)
                 .then(function (data) {
                     commonFactory.closeModal(vm.modalName);
@@ -62,7 +67,7 @@
         };
 
         vm.deleteBook = function () {
-            var index = vm.books.indexOf(findById(vm.tempBook.id));
+            var index = vm.books.indexOf(commonFactory.findById(vm.books, vm.tempBook.id));
             if (index > -1) { vm.books.splice(index, 1); }
             bookApi.deleteBook(vm.tempBook.id)
             .then(function (response) {
@@ -79,14 +84,6 @@
 
         vm.closeModal = function () {
             commonFactory.closeModal(vm.modalName);
-        };
-
-        function findById(id) {
-            for (var i = 0; i < vm.books.length; i++) {
-                if (vm.books[i].id == vm.tempBook.id) {
-                    return vm.books[i];
-                }
-            }
         };
     }
 })();

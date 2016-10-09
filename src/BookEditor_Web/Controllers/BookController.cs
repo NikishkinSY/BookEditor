@@ -44,7 +44,7 @@ namespace BookEditor_Web.Controllers
             return await Task.Run(() => {
                 try
                 {
-                    return _bookRepository.GetAll().Select(x => Automapper.Map(x));
+                    return _bookRepository.GetAll().Select(x => Automapper.Map(x)).ToList();
                 }
                 catch (Exception ex)
                 {
