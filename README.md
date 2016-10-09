@@ -2,19 +2,12 @@
 
 Simple web-application which describe relationships between books and authors.
 
-
-## Back-end: 
- - Techs: ASP.NET Core (mainly web-api), Entity Framework Core, Dependency Injection, MS SQL.
- - Patterns/Principles: IoC, Repository, UnitOfWork.
-
-## Fron-end:
- - Techs: Angular 1.5, JQuery, Bootstrap.
- - Enviroment: nmp, gulp.
- - Patterns: [johnpapa guid](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
-
-## Faced issues:
- - EF core still has some problems with many-to-many relationships.
- - Issue with configuration Automapper. Can't access automapper's class 'ValueResolver' in .Net Core (may be).
+## Technologies: 
+ - Back-end Techs: ASP.NET Core (mainly web-api), Entity Framework Core, Dependency Injection, MS SQL.
+ - Back-end Patterns/Principles: IoC, Repository, UnitOfWork.
+ - Fron-end Techs: Angular 1.5, JQuery, Bootstrap.
+ - Fron-end Enviroment: nmp, gulp.
+ - Fron-end Patterns: [johnpapa guid](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
 
 ## Prerequisites:
  - Visual Studio 2015 Update 3. 
@@ -26,3 +19,7 @@ Simple web-application which describe relationships between books and authors.
  - In projects BookEditor_Web/BookEditor_Web in web.config you need to write correct sqlConnectionString.
  - Restore Nuget packeges if needed.
  - Restore nmp packeges if needed.
+ 
+## Faced issues:
+ - EF core still has some problems with many-to-many relationships.
+ - Issue with configuration Automapper. Can't access automapper's class 'ValueResolver' in .Net Core (may be).
