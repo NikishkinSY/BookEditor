@@ -13,6 +13,7 @@
     "angularjs-dropdown-multiselect": "1.10.2",
     "angular-base64-upload": "0.1.19",
     "angular-toastr": "2.1.1",
+    "bootstrap-filestyle": "1.2.1",
     "gulp": "3.9.1"
   },
   "dependencies": {}

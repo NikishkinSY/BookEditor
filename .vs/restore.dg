@@ -1,1 +1,4 @@
 #:G:\!My\C#\Repos\BookEditor\src\Tests\Tests.xproj
+G:\!My\C#\Repos\BookEditor\src\Tests\Tests.xproj|G:\!My\C#\Repos\BookEditor\src\BookEditor_Model\BookEditor_Model.xproj
+G:\!My\C#\Repos\BookEditor\src\Tests\Tests.xproj|G:\!My\C#\Repos\BookEditor\src\BookEditor_Repository\BookEditor_Repository.xproj
+G:\!My\C#\Repos\BookEditor\src\BookEditor_Repository\BookEditor_Repository.xproj|G:\!My\C#\Repos\BookEditor\src\BookEditor_Model\BookEditor_Model.xproj

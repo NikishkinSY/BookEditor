@@ -25,6 +25,9 @@
         vm.sortPredicateBook = cookiesFactory.get('predicate');
         vm.reverse = cookiesFactory.get('reverse') === 'true';
 
+        //load input file control
+        $(":file").filestyle({ input: false });
+
         //get all books
         vm.getBooks = function () {
             bookApi.getBooks()

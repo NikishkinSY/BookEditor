@@ -1,4 +1,5 @@
 ﻿<div id="authorCollapse" class="collapse modal-row row" ng-controller="AuthorController as author" ng-init="author.getAuthors()">
+    <hr>
     <form ng-submit="author.addAuthor(formAuthor.$valid)" name="formAuthor">
         <div class="modal-row row">
             <div class="col-xs-3">Add author</div>
@@ -19,6 +20,8 @@
             </div>
         </div>
     </form>
+
+    <hr>
 
     <div class="author-table">
         <table class="table table-hover">

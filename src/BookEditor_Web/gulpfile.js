@@ -26,6 +26,7 @@ var itemsToCopy = {
     //bootstrap
     './node_modules/bootstrap/dist/css/bootstrap.min.css': paths.webroot + 'lib/bootstrap',
     './node_modules/bootstrap/dist/js/bootstrap.min.js': paths.webroot + 'lib/bootstrap',
+    './node_modules/bootstrap-filestyle/src/bootstrap-filestyle.min.js': paths.webroot + 'lib/bootstrap',
     
     //jquery
     './node_modules/jquery/dist/jquery.min.js': paths.webroot + 'lib/jquery'
