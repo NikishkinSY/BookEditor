@@ -1,4 +1,5 @@
-﻿(function () {
+﻿// factory to work with cookies
+(function () {
     'use strict';
 
     angular

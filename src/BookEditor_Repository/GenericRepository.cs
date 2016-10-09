@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using BookEditor_Model.Context;
 using BookEditor_Model.Entities;
 
 namespace BookEditor_Repository

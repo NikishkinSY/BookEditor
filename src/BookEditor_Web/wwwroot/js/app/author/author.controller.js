@@ -13,6 +13,7 @@
         vm.tempAuthor = {};
         vm.show = false;
 
+        //get all authors
         vm.getAuthors = function () {
             authorApi.getAuthors()
                 .then(function (data) {
@@ -20,6 +21,7 @@
                 });
         };
 
+        //insert author
         vm.addAuthor = function () {
             authorApi.addAuthor(vm.tempAuthor)
                 .then(function (data) {
@@ -34,6 +36,7 @@
                 });
         };
 
+        //delete author
         vm.deleteAuthor = function (id) {
             authorApi.deleteAuthor(id)
                 .then(function (data) {

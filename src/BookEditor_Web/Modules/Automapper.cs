@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using BookEditor_Model;
 using BookEditor_Web.Models;
 using BookEditor_Model.Entities;
 

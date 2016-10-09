@@ -1,4 +1,5 @@
-﻿(function () {
+﻿// common place for books and authors arrays
+(function () {
     'use strict';
 
     angular
@@ -34,7 +35,7 @@
             }
         };
 
-        
+        /////////////////////////////////////////////////////////////////////////
         this.addBook = function (book) {
             this.books.push(book);
         };

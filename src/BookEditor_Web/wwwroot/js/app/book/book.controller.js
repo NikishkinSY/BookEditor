@@ -10,7 +10,6 @@
     function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService, toastr) {
         var vm = this;
         vm.books = shareService.books;
-        vm.modalName = '#bookModal';
 
         vm.tempImage = {};
         vm.tempBook = { authors: [] };
@@ -26,6 +25,7 @@
         vm.sortPredicateBook = cookiesFactory.get('predicate');
         vm.reverse = cookiesFactory.get('reverse') === 'true';
 
+        //get all books
         vm.getBooks = function () {
             bookApi.getBooks()
                 .then(function (data) {
@@ -33,20 +33,22 @@
                 });
         };
 
+        //pre add book
         vm.addBook = function () {
             vm.tempBook = { authors: [] };
             vm.isNewBook = true;
             vm.title = 'Add new book';
         };
 
+        //pre edit book
         vm.editBook = function (book) {
             vm.tempBook = { authors: [] };
             commonFactory.copyProperties(book, vm.tempBook);
             vm.isNewBook = false;
-            
             vm.title = 'Edit book';
         };
 
+        //insert or update book
         vm.saveBook = function (valid) {
             if (!valid)
                 return;
@@ -59,7 +61,7 @@
                     else {
                         vm.tempBook.id = response;
                         shareService.addBook(vm.tempBook);
-                        commonFactory.closeModal(vm.modalName);
+                        commonFactory.closeModal();
                     }
                 });
             } else {
@@ -69,21 +71,23 @@
                     if (!data)
                         toastr.error('Server error, try one more time', 'Error');
                     else {
-                        commonFactory.closeModal(vm.modalName);
+                        commonFactory.closeModal();
                     }
                 });
             }
         };
 
+        //delete book
         vm.deleteBook = function () {
             shareService.deleteBook(vm.tempBook.id);
             bookApi.deleteBook(vm.tempBook.id)
             .then(function (response) {
-                commonFactory.closeModal(vm.modalName);
+                commonFactory.closeModal();
                 toastr.success('Book deleted', '');
             });
         };
 
+        //save sort to cookie
         vm.sort = function (column) {
             vm.sortPredicateBook = column;
             vm.reverse = !vm.reverse;
@@ -91,8 +95,9 @@
             cookiesFactory.put('predicate', vm.sortPredicateBook, vm.timelifeCookie);
         };
 
+        //close modal
         vm.closeModal = function () {
-            commonFactory.closeModal(vm.modalName);
+            commonFactory.closeModal();
         };
     }
 })();

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,13 +7,11 @@ using Microsoft.Extensions.Logging;
 using BookEditor_Repository.Interfaces;
 using BookEditor_Repository.Repositories;
 using BookEditor_Model.Context;
-using BookEditor_Web.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BookEditor_Web.Modules;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Diagnostics;
-using System.Text;
 
 namespace BookEditor_Web
 {
@@ -38,6 +32,7 @@ namespace BookEditor_Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // rules for map POCO objects to JSON WebApi respone
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver =
@@ -45,6 +40,7 @@ namespace BookEditor_Web
                 options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            //DI
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddDbContext<BookEditorContext>(options => 

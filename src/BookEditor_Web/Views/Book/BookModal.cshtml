@@ -62,11 +62,11 @@
 
                     <div class="modal-row row">
                         <div class="col-xs-3">Authors</div>
-                        <div class="col-xs-3" 
+                        <div class="col-xs-3" ngAtLeastOne
                              ng-dropdown-multiselect=""
                              options="book.authors"
                              selected-model="book.tempBook.authors"
-                             extra-settings="{displayProp: 'fullName', idProp: 'id'}"></div>
+                             extra-settings="{displayProp: 'fullName', idProp: 'id', buttonDefaultText: 'Select authors', enableSearch: true}"></div>
                         <div class="col-xs-6">
                             <a href="#" data-toggle="collapse" data-target="#authorCollapse">Add new author</a>
                         </div>

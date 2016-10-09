@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BookEditor_Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using BookEditor_Model.Context;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Diagnostics;
 using BookEditor_Web.Models;
-using AutoMapper;
-using BookEditor_Model;
-using BookEditor_Model.Entities;
-using System.Net.Http;
-using System.Net;
 using BookEditor_Web.Modules;
 
 namespace BookEditor_Web.Controllers

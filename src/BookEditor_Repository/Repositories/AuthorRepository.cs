@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BookEditor_Model;
-using BookEditor_Repository.Interfaces;
+﻿using BookEditor_Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using BookEditor_Model.Context;
 using BookEditor_Model.Entities;

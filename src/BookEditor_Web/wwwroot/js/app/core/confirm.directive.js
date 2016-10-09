@@ -1,4 +1,5 @@
-﻿(function () {
+﻿//confirmation directive
+(function () {
     'use strict';
 
     angular
