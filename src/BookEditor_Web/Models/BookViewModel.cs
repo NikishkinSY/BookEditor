@@ -11,7 +11,6 @@ namespace BookEditor_Web.Models
         public BookViewModel()
         {
             Authors = new List<AuthorViewModel>();
-            Base64Image = new Image();
         }
 
         public int Id { get; set; }
@@ -39,7 +38,7 @@ namespace BookEditor_Web.Models
         public Image Base64Image { get; set; }
     }
 
-    public class Image
+    public struct Image
     {
         public string Base64 { get; set; }
     }

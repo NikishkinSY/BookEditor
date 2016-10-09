@@ -24,7 +24,7 @@
                 <td>{{ item.publishingHouseName }}</td>
                 <td>{{ item.publishYear }}</td>
                 <td>{{ item.isbn }}</td>
-                <td>{{ item.image }}</td>
+                <td><img class="book-image" src="data:image/jpeg;base64, {{ item.base64Image.base64 }}" ng-hide="!item.base64Image.base64" /></td>
                 <td><input type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookModal" value="E" ng-click="book.editBook(item)" /></td>
             </tr>
         </tbody>

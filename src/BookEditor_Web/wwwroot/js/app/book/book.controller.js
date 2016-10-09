@@ -9,10 +9,11 @@
 
     function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService, toastr) {
         var vm = this;
-        vm.books = [];
+        vm.books = shareService.books;
         vm.modalName = '#bookModal';
 
-        vm.tempBook = { authors: [], base64Image: {} };
+        vm.tempImage = {};
+        vm.tempBook = { authors: [] };
         vm.tempIndex = 0;
         vm.isNewBook = true;
         vm.title = '';
@@ -28,20 +29,21 @@
         vm.getBooks = function () {
             bookApi.getBooks()
                 .then(function (data) {
-                    vm.books = data;
+                    shareService.addBooks(data);
                 });
         };
 
         vm.addBook = function () {
-            vm.tempBook = { authors: [], base64Image: {} };
+            vm.tempBook = { authors: [] };
             vm.isNewBook = true;
             vm.title = 'Add new book';
         };
 
         vm.editBook = function (book) {
-            vm.tempBook = { authors: [], base64Image: {} };
+            vm.tempBook = { authors: [] };
             commonFactory.copyProperties(book, vm.tempBook);
             vm.isNewBook = false;
+            
             vm.title = 'Edit book';
         };
 
@@ -56,12 +58,12 @@
                         toastr.error('Server error, try one more time', 'Error');
                     else {
                         vm.tempBook.id = response;
-                        vm.books.push(vm.tempBook);
+                        shareService.addBook(vm.tempBook);
                         commonFactory.closeModal(vm.modalName);
                     }
                 });
             } else {
-                commonFactory.copyProperties(vm.tempBook, commonFactory.findById(vm.books, vm.tempBook.id));
+                shareService.editBook(vm.tempBook);
                 bookApi.editBook(vm.tempBook)
                 .then(function (data) {
                     if (!data)
@@ -74,8 +76,7 @@
         };
 
         vm.deleteBook = function () {
-            var index = vm.books.indexOf(commonFactory.findById(vm.books, vm.tempBook.id));
-            if (index > -1) { vm.books.splice(index, 1); }
+            shareService.deleteBook(vm.tempBook.id);
             bookApi.deleteBook(vm.tempBook.id)
             .then(function (response) {
                 commonFactory.closeModal(vm.modalName);
