@@ -26,44 +26,24 @@ namespace BookEditor_Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<AuthorViewModel>> Get()
         {
-            return await Task.Run(() => {
-                try
-                {
-                    return _authorRepository.GetAll().Select(x => Automapper.Map(x));
-                }
-                catch (Exception ex)
-                {
-
-                }
-
-                return null;
-            });
+            return await Task.Run(() => { return _authorRepository.GetAll().Select(x => Automapper.Map(x)); });
         }
 
         [HttpPost]
         public async Task<int> Add([FromBody]AuthorViewModel author)
         {
-            //if (ModelState.IsValid)
-            //{
-            return await Task.Run(() => {
-                try
+            if (ModelState.IsValid)
+            {
+                return await Task.Run(() =>
                 {
                     var _author = Automapper.Map(author);
                     _authorRepository.Add(_author);
                     _authorRepository.Commit();
                     return _author.Id;
-                }
-                catch (Exception ex)
-                {
-                    return -1;
-                }
-
-            });
-            //}
-            //else
-            //{
-
-            //}
+                });
+            }
+            else
+                return -1;
 
         }
 

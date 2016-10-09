@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BookEditor_Web.Modules;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Text;
 
 namespace BookEditor_Web
 {
@@ -55,7 +57,19 @@ namespace BookEditor_Web
             loggerFactory.AddConsole();
 
             //error handler
-            app.UseExceptionHandler("/Error/Error");
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = 500; // or another Status accordingly to Exception Type
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error != null)
+                    {
+                        serviceProvider.GetService<ILogger<Startup>>().LogError("{err}", error?.Error);
+                        await context.Response.WriteAsync($"Error: {error?.Error.Message}");
+                    }
+                });
+            });
 
             app.UseStaticFiles();
 

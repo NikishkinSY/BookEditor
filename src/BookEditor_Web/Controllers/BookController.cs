@@ -41,70 +41,39 @@ namespace BookEditor_Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<BookViewModel>> Get()
         {
-            return await Task.Run(() => {
-                try
-                {
-                    return _bookRepository.GetAll().Select(x => Automapper.Map(x)).ToList();
-                }
-                catch (Exception ex)
-                {
-
-                }
-
-                return null;
-            });
-            
-            
+            return await Task.Run(() => { return _bookRepository.GetAll().Select(x => Automapper.Map(x)).ToList(); });
         }
 
         [HttpPost]
         public async Task<int> Add([FromBody]BookViewModel book)
         {
-            //if (ModelState.IsValid)
-            //{
-            return await Task.Run(() => {
-                try
-                {
+            if (ModelState.IsValid)
+            {
+                return await Task.Run(() => {
                     var _book = Automapper.Map(book);
                     _bookRepository.Add(_book);
                     _bookRepository.Commit();
                     return _book.Id;
-                }
-                catch (Exception ex)
-                {
+                });
+            }
+            else
                 return -1;
-                }
-                
-            });
-            //}
-            //else
-            //{
-
-            //}
             
         }
 
         [HttpPost]
-        public async Task Edit([FromBody]BookViewModel book)
+        public async Task<bool> Edit([FromBody]BookViewModel book)
         {
-            //if (ModelState.IsValid)
-            //{
-                await Task.Run(() => {
-                    try
-                    {
-                        _bookRepository.Edit(Automapper.Map(book));
-                        _bookRepository.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
+            if (ModelState.IsValid)
+            {
+                return await Task.Run(() => {
+                    _bookRepository.Edit(Automapper.Map(book));
+                    _bookRepository.Commit();
+                    return true;
                 });
-            //}
-            //else
-            //{
-
-            //}
+            }
+            else
+                return false;
         }
 
         [HttpPost]

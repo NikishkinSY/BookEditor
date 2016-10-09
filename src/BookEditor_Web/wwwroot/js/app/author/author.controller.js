@@ -5,9 +5,9 @@
         .module('app.author')
         .controller('AuthorController', Author);
 
-    Author.$inject = ['authorApi', 'shareService'];
+    Author.$inject = ['authorApi', 'shareService', 'toastr'];
 
-    function Author(authorApi, shareService) {
+    function Author(authorApi, shareService, toastr) {
         var vm = this;
         vm.authors = shareService.authors;
         vm.tempAuthor = {};
@@ -23,23 +23,23 @@
         vm.addAuthor = function () {
             authorApi.addAuthor(vm.tempAuthor)
                 .then(function (data) {
-                    vm.tempAuthor.id = data;
-                    shareService.addAuthor(vm.tempAuthor);
-                    vm.tempAuthor = {};
+                    if (data < 0)
+                        toastr.error('Server error, try one more time', 'Error');
+                    else {
+                        vm.tempAuthor.id = data;
+                        shareService.addAuthor(vm.tempAuthor);
+                        vm.tempAuthor = {};
+                        toastr.success('Author added', '');
+                    }
                 });
-        };
-
-        vm.editAuthor = function (author) {
-
         };
 
         vm.deleteAuthor = function (id) {
             authorApi.deleteAuthor(id)
                 .then(function (data) {
                     shareService.deleteAuthor(id);
+                    toastr.success('Author deleted', '');
                 });
         };
-
-
     }
 })();

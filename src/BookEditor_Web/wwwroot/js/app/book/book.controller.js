@@ -5,15 +5,14 @@
         .module('app.book')
         .controller('BookController', Book);
 
-    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory', 'authorApi', 'shareService'];
+    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory', 'authorApi', 'shareService', 'toastr',];
 
-    function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService) {
+    function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService, toastr) {
         var vm = this;
-        vm.newBook = {};
         vm.books = [];
         vm.modalName = '#bookModal';
 
-        vm.tempBook = {};
+        vm.tempBook = { authors: [], base64Image: {} };
         vm.tempIndex = 0;
         vm.isNewBook = true;
         vm.title = '';
@@ -34,13 +33,13 @@
         };
 
         vm.addBook = function () {
-            vm.tempBook = { authors:[] };
+            vm.tempBook = { authors: [], base64Image: {} };
             vm.isNewBook = true;
             vm.title = 'Add new book';
         };
 
         vm.editBook = function (book) {
-            vm.tempBook = {};
+            vm.tempBook = { authors: [], base64Image: {} };
             commonFactory.copyProperties(book, vm.tempBook);
             vm.isNewBook = false;
             vm.title = 'Edit book';
@@ -53,15 +52,23 @@
             if (vm.isNewBook) {
                 bookApi.addBook(vm.tempBook)
                 .then(function (response) {
-                    vm.tempBook.id = response;
-                    vm.books.push(vm.tempBook);
-                    commonFactory.closeModal(vm.modalName);
+                    if (response < 0)
+                        toastr.error('Server error, try one more time', 'Error');
+                    else {
+                        vm.tempBook.id = response;
+                        vm.books.push(vm.tempBook);
+                        commonFactory.closeModal(vm.modalName);
+                    }
                 });
             } else {
                 commonFactory.copyProperties(vm.tempBook, commonFactory.findById(vm.books, vm.tempBook.id));
                 bookApi.editBook(vm.tempBook)
                 .then(function (data) {
-                    commonFactory.closeModal(vm.modalName);
+                    if (!data)
+                        toastr.error('Server error, try one more time', 'Error');
+                    else {
+                        commonFactory.closeModal(vm.modalName);
+                    }
                 });
             }
         };
@@ -72,6 +79,7 @@
             bookApi.deleteBook(vm.tempBook.id)
             .then(function (response) {
                 commonFactory.closeModal(vm.modalName);
+                toastr.success('Book deleted', '');
             });
         };
 

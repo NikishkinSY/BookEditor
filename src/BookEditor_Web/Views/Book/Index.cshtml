@@ -2,15 +2,7 @@
     Layout = "_Layout";
 }
 
-<environment names="Development">
-    <link href="~/css/books.css" rel="stylesheet" />
-</environment>
-<environment names="Staging,Production">
-    <link href="~/css/books.css" rel="stylesheet" asp-append-version="true" />
-</environment>
-
-
-<div class="expenses" ng-controller="BookController as book" ng-init="book.getBooks()">
+<div ng-controller="BookController as book" ng-init="book.getBooks()">
     <input class="btn btn-primary" type="button" data-toggle="modal" data-target="#bookModal" value="Add book" ng-click="book.addBook()" />
 
     <table class="table table-hover">
