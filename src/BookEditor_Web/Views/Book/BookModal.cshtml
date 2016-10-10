@@ -65,13 +65,23 @@
 
                     <div class="modal-row row">
                         <div class="col-xs-3">Authors</div>
-                        <div class="col-xs-3" ngAtLeastOne
+                        <div class="col-xs-3" 
+
+                             ng-model="book.tempBook.authors"
+                             ng-at-least-one
+                             name="selectedAuthors"
+                             
                              ng-dropdown-multiselect=""
                              options="book.authors"
                              selected-model="book.tempBook.authors"
-                             extra-settings="{displayProp: 'fullName', idProp: 'id', buttonDefaultText: 'Select authors', enableSearch: true}"></div>
-                        
+                             extra-settings="{displayProp: 'fullName', idProp: 'id', buttonDefaultText: 'Select authors', enableSearch: true }"
+                             events="book.selectAuthorsEvents"
+                             ></div>
+                        <div ng-messages="formBookModal.selectedAuthors.$error">
+                            <div class="modal-error" ng-message="atLeastOne">Choose at least one author</div>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <a href="#" data-toggle="collapse" data-target="#authorCollapse">Add new author</a>

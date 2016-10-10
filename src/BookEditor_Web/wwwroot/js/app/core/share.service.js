@@ -23,7 +23,7 @@
             }
         };
         this.deleteAuthor = function (id) {
-            var result = removeItem(this.authors, id);
+            var result = commonFactory.removeItem(this.authors, id);
             if (result) {
                 for (var i = 0; i < this.books.length; i++) {
                     for (var j = 0; j < this.books[i].authors.length; j++) {
@@ -48,13 +48,13 @@
             commonFactory.copyProperties(book, commonFactory.findById(this.books, book.id));
         };
         this.deleteBook = function (id) {
-            removeItem(this.books, id);
+            commonFactory.removeItem(this.books, id);
         };
 
-        function removeItem(array, id) {
-            var index = array.indexOf(commonFactory.findById(array, id));
-            if (index > -1) { array.splice(index, 1); }
-            return index > -1;
-        };
+        //function removeItem(array, id) {
+        //    var index = array.indexOf(commonFactory.findById(array, id));
+        //    if (index > -1) { array.splice(index, 1); }
+        //    return index > -1;
+        //};
     }
 })();

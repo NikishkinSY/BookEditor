@@ -10,7 +10,8 @@
         return {
             closeModal: closeModal,
             copyProperties: copyProperties,
-            findById: findById
+            findById: findById,
+            removeItem: removeItem
         };
 
         //close modal
@@ -32,6 +33,13 @@
                     return items[i];
                 }
             }
+        };
+
+        //remove item from array
+        function removeItem(array, id) {
+            var index = array.indexOf(findById(array, id));
+            if (index > -1) { array.splice(index, 1); }
+            return index > -1;
         };
     }
 })();

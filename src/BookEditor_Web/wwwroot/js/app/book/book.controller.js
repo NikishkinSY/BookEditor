@@ -5,28 +5,29 @@
         .module('app.book')
         .controller('BookController', Book);
 
-    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory', 'authorApi', 'shareService', 'toastr',];
+    Book.$inject = ['bookApi', 'cookiesFactory', 'commonFactory', 'authorApi', 'shareService', 'toastr', '$scope'];
 
-    function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService, toastr) {
+    function Book(bookApi, cookiesFactory, commonFactory, authorApi, shareService, toastr, $scope) {
         var vm = this;
+
+        //all books and authors for all controllers
         vm.books = shareService.books;
-
-        vm.tempImage = {};
-        vm.tempBook = { authors: [] };
-        vm.tempIndex = 0;
-        vm.isNewBook = true;
-        vm.title = '';
-
         vm.authors = shareService.authors;
+
+        //temp book for edit and add
+        vm.tempBook = { authors: [] };
+        //flag for new or edit book
+        vm.isNewBook = true;
+        //changable title for modal window
+        vm.title = '';
         
+        //regex for ISBN
         vm.isbnRegex = '^(?:ISBN(?:-1[03])?:?\ )?(?=[-0-9\ ]{17}$|[-0-9X\ ]{13}$|[0-9X]{10}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?(?:[0-9]+[-\ ]?){2}[0-9X]$';
 
+        //cookie settings
         vm.timelifeCookie = 30;
         vm.sortPredicateBook = cookiesFactory.get('predicate');
         vm.reverse = cookiesFactory.get('reverse') === 'true';
-
-        //load input file control
-        $(":file").filestyle({ input: false });
 
         //get all books
         vm.getBooks = function () {
@@ -39,6 +40,7 @@
         //pre add book
         vm.addBook = function () {
             vm.tempBook = { authors: [] };
+            makeValidation();
             vm.isNewBook = true;
             vm.title = 'Add new book';
         };
@@ -47,6 +49,8 @@
         vm.editBook = function (book) {
             vm.tempBook = { authors: [] };
             commonFactory.copyProperties(book, vm.tempBook);
+            makeValidation();
+            vm.selectedAuthors = 
             vm.isNewBook = false;
             vm.title = 'Edit book';
         };
@@ -65,6 +69,7 @@
                         vm.tempBook.id = response;
                         shareService.addBook(vm.tempBook);
                         commonFactory.closeModal();
+                        toastr.success('Book added', '');
                     }
                 });
             } else {
@@ -75,6 +80,7 @@
                         toastr.error('Server error, try one more time', 'Error');
                     else {
                         commonFactory.closeModal();
+                        toastr.success('Book edited', '');
                     }
                 });
             }
@@ -101,6 +107,25 @@
         //close modal
         vm.closeModal = function () {
             commonFactory.closeModal();
+        };
+
+        //validation for input select authors
+        vm.selectAuthorsEvents = {
+            onUnselectAll: function (item) {
+                makeValidation();
+            },
+            onSelectAll: function (item) {
+                makeValidation();
+            },
+            onItemSelect: function (item) {
+                makeValidation();
+            },
+            onItemDeselect: function (item) {
+                makeValidation();
+            }
+        };
+        function makeValidation() {
+            $scope.formBookModal.selectedAuthors.$setValidity("atLeastOne", vm.tempBook.authors.length > 0);
         };
     }
 })();

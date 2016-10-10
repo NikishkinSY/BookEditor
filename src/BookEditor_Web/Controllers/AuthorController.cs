@@ -6,6 +6,8 @@ using BookEditor_Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using BookEditor_Web.Models;
 using BookEditor_Web.Modules;
+using AutoMapper;
+using BookEditor_Model.Entities;
 
 namespace BookEditor_Web.Controllers
 {
@@ -25,7 +27,7 @@ namespace BookEditor_Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<AuthorViewModel>> Get()
         {
-            return await Task.Run(() => { return _authorRepository.GetAll().Select(x => Automapper.Map(x)); });
+            return await Task.Run(() => { return Mapper.Map<IEnumerable<AuthorViewModel>>(_authorRepository.GetAll()); });
         }
 
         [HttpPost]
@@ -35,7 +37,7 @@ namespace BookEditor_Web.Controllers
             {
                 return await Task.Run(() =>
                 {
-                    var _author = Automapper.Map(author);
+                    var _author = Mapper.Map<Author>(author);
                     _authorRepository.Add(_author);
                     _authorRepository.Commit();
                     return _author.Id;

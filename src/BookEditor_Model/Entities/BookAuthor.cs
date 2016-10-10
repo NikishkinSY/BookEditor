@@ -18,12 +18,6 @@ namespace BookEditor_Model.Entities
             Author = _author;
             AuthorId = _author.Id;
         }
-        public BookAuthor(Book _book, int _authorId)
-        {
-            Book = _book;
-            BookId = _book.Id;
-            AuthorId = _authorId;
-        }
 
         public int BookId { get; set; }
         [ForeignKey("BookId")]

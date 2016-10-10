@@ -16,7 +16,7 @@ namespace BookEditor_Web.Models
         [StringLength(30)]
         public string Header { get; set; }
 
-        public IEnumerable<AuthorViewModel> Authors { get; set; }
+        public ICollection<AuthorViewModel> Authors { get; set; }
 
         [Required]
         [Range(0, 10000)]
