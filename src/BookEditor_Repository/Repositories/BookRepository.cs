@@ -23,7 +23,8 @@ namespace BookEditor_Repository.Repositories
         public override IQueryable<Book> GetAll()
         {
             return ((BookEditorContext)_context).Books
-                .Include(book => book.BookAuthors);
+                .Include(book => book.BookAuthors)
+                .ThenInclude(bookAuthor => bookAuthor.Author);
         }
         
         public override void Edit(Book entity)

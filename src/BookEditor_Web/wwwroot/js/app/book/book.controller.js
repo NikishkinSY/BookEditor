@@ -22,7 +22,7 @@
         vm.title = '';
         
         //regex for ISBN
-        vm.isbnRegex = '^(?:ISBN(?:-1[03])?:?\ )?(?=[-0-9\ ]{17}$|[-0-9X\ ]{13}$|[0-9X]{10}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?(?:[0-9]+[-\ ]?){2}[0-9X]$';
+        vm.isbnRegex = '^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$';
 
         //cookie settings
         vm.timelifeCookie = 30;
@@ -63,7 +63,7 @@
             if (vm.isNewBook) {
                 bookApi.addBook(vm.tempBook)
                 .then(function (response) {
-                    if (response < 0)
+                    if (response && response < 0)
                         toastr.error('Server error, try one more time', 'Error');
                     else {
                         vm.tempBook.id = response;

@@ -37,6 +37,11 @@
 
         /////////////////////////////////////////////////////////////////////////
         this.addBook = function (book) {
+            for (var i = 0; i < book.authors.length; i++) {
+                var author = commonFactory.findById(this.authors, book.authors[i].id);
+                book.authors[i].firstName = author.firstName;
+                book.authors[i].secondName = author.secondName;
+            }
             this.books.push(book);
         };
         this.addBooks = function (books) {

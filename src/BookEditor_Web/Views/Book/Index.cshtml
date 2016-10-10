@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th ng-click="book.sort('header')">Header</th>
+                <th>Authors</th>
                 <th>Page Count</th>
                 <th>Publishing house</th>
                 <th ng-click="book.sort('publishYear')">Publish year</th>
@@ -20,6 +21,7 @@
         <tbody>
             <tr ng-repeat="item in book.books | orderBy:book.sortPredicateBook:book.reverse">
                 <td>{{ item.header }}</td>
+                <td><div ng-repeat="author in item.authors"> {{ author.firstName + ' ' + author.secondName }}</div></td>
                 <td>{{ item.pageCount }}</td>
                 <td>{{ item.publishingHouseName }}</td>
                 <td>{{ item.publishYear }}</td>

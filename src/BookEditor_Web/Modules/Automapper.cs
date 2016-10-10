@@ -46,7 +46,7 @@ namespace BookEditor_Web.Modules
         {
             destMember = new List<AuthorViewModel>();
             if (source.BookAuthors != null)
-                foreach (var item in source.BookAuthors.Select(x => new AuthorViewModel(x.AuthorId)))
+                foreach (var item in source.BookAuthors.Select(x => new AuthorViewModel() { Id = x.AuthorId, FirstName = x.Author.FirstName, SecondName = x.Author.SecondName }))
                     destMember.Add(item);
             return destMember;
         }
