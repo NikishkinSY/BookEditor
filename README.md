@@ -16,7 +16,7 @@ Simple web-application which describe relationships between books and authors.
  - IISExpress 10.
 
 ## Before run solution:
- - In projects BookEditor_Web/BookEditor_Web in web.config you need to write correct sqlConnectionString.
+ - In projects src/BookEditor_Web in appsettings.json you need to write correct sqlConnectionString.
  - Restore Nuget packeges if needed.
  - Restore nmp packeges if needed.
  
