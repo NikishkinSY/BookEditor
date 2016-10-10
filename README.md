@@ -22,5 +22,4 @@ Simple web-application which describe relationships between books and authors.
  
 ## Faced issues:
  - EF core still has some problems with many-to-many relationships.
- - Issue with configuration Automapper. Can't access automapper's class 'ValueResolver' in .Net Core (may be).
  - Libraries (xUnit, Unit Test) for unit and integrations tests still do not support newest .net core 1.0. ([xUnit](http://xunit.github.io/docs/getting-started-dotnet-core.html))
