@@ -21,5 +21,6 @@ Simple web-application which describe relationships between books and authors.
  - Restore nmp packeges if needed.
  
 ## Faced issues:
- - EF core still has some problems with many-to-many relationships.
- - Libraries (xUnit, Unit Test) for unit and integrations tests still do not support newest .net core 1.0. ([xUnit](http://xunit.github.io/docs/getting-started-dotnet-core.html))
+ - EF core still has some problems with many-to-many relationships, but it solved by custom way.
+ - Libraries (xUnit, Unit Test) for unit and integrations tests still do not support newest .net core 1.0. ([xUnit](http://xunit.github.io/docs/getting-started-dotnet-core.html)).
+ - Module for angular ([angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)) has issue with bug event (onUnselectAll), it does not fire. 
