@@ -3,7 +3,7 @@
 Simple web-application which describe relationships between books and authors.
 
 ## Technologies: 
- - Back-end Techs: ASP.NET Core, Entity Framework Core, Dependency Injection, MS SQL.
+ - Back-end Techs: ASP.NET Core, Entity Framework Core, Dependency Injection, MS SQL, Automapper.
  - Back-end Patterns/Principles: MVC, WebApi, IoC, Repository, UnitOfWork, async/await.
  - Fron-end Techs: Angular 1.5, JQuery, Bootstrap.
  - Fron-end Enviroment: nmp, gulp.
