@@ -65,24 +65,64 @@ namespace BookEditor_Web.Modules
 
         public static void Configurate()
         {
-            //Mapper.Initialize(cfg => cfg.CreateMap<Book, BookViewModel>());
-            //.ForMember(dest => dest.Dic, opt => opt.ResolveUsing<DictionaryResolver>());
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Book, BookViewModel>()
+                    .ForMember(dest => dest.Base64Image, opt => opt.ResolveUsing<ImageResolver>())
+                    .ForMember(dest => dest.Authors, opt => opt.ResolveUsing<BookAuthorResolver>());
 
-            //Mapper.Initialize(cfg => cfg.CreateMap<BookViewModel, Book>());
+                cfg.CreateMap<BookViewModel, Book>()
+                    .ForMember(dest => dest.Image, opt => opt.ResolveUsing<ImageBackResolver>())
+                    .ForMember(dest => dest.BookAuthors, opt => opt.ResolveUsing<BookAuthorBackResolver>());
 
-            //Mapper.Initialize(cfg => cfg.CreateMap<Author, AuthorViewModel>()
-            //    .ForSourceMember(x => x.BookAuthors, opt => opt.Ignore()));
-            //Mapper.Initialize(cfg => cfg.CreateMap<AuthorViewModel, Author>());
-            //Mapper.AssertConfigurationIsValid();
+                cfg.CreateMap<Author, AuthorViewModel>();
+
+                cfg.CreateMap<AuthorViewModel, Author>()
+                    .ForMember(x => x.BookAuthors, opt => opt.Ignore());
+            });
+
+            Mapper.AssertConfigurationIsValid();
         }
     }
 
-        //public class CustomResolver : AutoMapper.IValueResolver
-        //{
-        //public TDestMember Resolve(TSource source, TDestination destination, TDestMember destMember, ResolutionContext context);
-        //protected override int ResolveCore(string source)
-        //{
-        //    return 0;
-        //}
-        //}
+    public class ImageResolver : IValueResolver<Book, BookViewModel, Image>
+    {
+        public Image Resolve(Book source, BookViewModel destination, Image destMember, ResolutionContext context)
+        {
+            if (source.Image != null)
+                destMember.Base64 = Convert.ToBase64String(source.Image);
+            return destMember;
+        }
+    }
+    public class BookAuthorResolver : IValueResolver<Book, BookViewModel, ICollection<AuthorViewModel>>
+    {
+        public ICollection<AuthorViewModel> Resolve(Book source, BookViewModel destination, ICollection<AuthorViewModel> destMember, ResolutionContext context)
+        {
+            destMember = new List<AuthorViewModel>();
+            if (source.BookAuthors != null)
+                foreach (var item in source.BookAuthors.Select(x => new AuthorViewModel(x.AuthorId)))
+                    destMember.Add(item);
+            return destMember;
+        }
+    }
+    public class ImageBackResolver : IValueResolver<BookViewModel, Book, byte[]>
+    {
+        public byte[] Resolve(BookViewModel source, Book destination, byte[] destMember, ResolutionContext context)
+        {
+            if (!string.IsNullOrEmpty(source.Base64Image.Base64))
+                destMember = Convert.FromBase64String(source.Base64Image.Base64);
+            return destMember;
+        }
+    }
+    public class BookAuthorBackResolver : IValueResolver<BookViewModel, Book, ICollection<BookAuthor>>
+    {
+        public ICollection<BookAuthor> Resolve(BookViewModel source, Book destination, ICollection<BookAuthor> destMember, ResolutionContext context)
+        {
+            destMember = new List<BookAuthor>();
+            if (source.Authors != null)
+                foreach (var item in source.Authors.Select(x => new BookAuthor(destination, x.Id)))
+                    destMember.Add(item);
+            return destMember;
+        }
+    }
 }
