@@ -4,10 +4,11 @@ Simple web-application which describe relationships between books and authors.
 
 ## Technologies: 
  - Back-end Techs: ASP.NET Core, Entity Framework Core, Dependency Injection, MS SQL, Automapper.
- - Back-end Patterns/Principles: MVC, WebApi, IoC, Repository, UnitOfWork, async/await, (also SOLID, DRY).
+ - Back-end Patterns/Principles: MVC, WebApi, IoC, Repository, UnitOfWork, async/await.
  - Fron-end Techs: Angular 1.5, JQuery, Bootstrap, ([angular-base64-upload](https://github.com/adonespitogo/angular-base64-upload), [angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)).
  - Fron-end Enviroment: nmp, gulp.
- - Fron-end Patterns: [johnpapa guid](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md).
+ - Fron-end Patterns: SPA, [johnpapa guid](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md).
+ - Common approaches: SOLID, DRY
 
 ## Prerequisites:
  - Visual Studio 2015 Update 3. 
