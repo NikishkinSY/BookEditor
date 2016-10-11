@@ -8,7 +8,7 @@ Simple web-application which describe relationships between books and authors.
  - Fron-end Techs: Angular 1.5, JQuery, Bootstrap, ([angular-base64-upload](https://github.com/adonespitogo/angular-base64-upload), [angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)).
  - Fron-end Enviroment: nmp, gulp.
  - Fron-end Patterns: SPA, [johnpapa guid](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md).
- - Common approaches: SOLID, DRY
+ - Common approaches: SOLID, DRY.
 
 ## Prerequisites:
  - Visual Studio 2015 Update 3. 
@@ -17,7 +17,7 @@ Simple web-application which describe relationships between books and authors.
  - IISExpress 10.
 
 ## Before run solution:
- - In projects src/BookEditor_Web in appsettings.json you need to write correct sqlConnectionString.
+ - In projects src/BookEditor_Web in appsettings.json you need to write correct sql connection string.
  - Restore Nuget packeges if needed.
  - Restore nmp packeges if needed.
  
