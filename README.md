@@ -33,7 +33,7 @@ Simple web-application which describe relationships between books and authors.
  - Separate images to different table in database with type and name.
  - Extend web error codes.
  - Web improvements: concatinations, minifications js & css, use less preprocessor.
- - Move from Angular 1.5 to 2.0 (but it is disputable issue according to too new and "wet" technology as well as ASP.NET Core).
- - Add test to back-end and frond-end.
- - I would be glad to use Angular Material insted of bootstrap (or with).
+ - Move from Angular 1.5 to 2.0 and use TypeScript (but it is disputable issue according to too new and "wet" technology as well as ASP.NET Core).
+ - Add tests to back-end and frond-end.
+ - I would be glad to use Angular Material insted of bootstrap (or with) and webpack ensted of gulp.
  
