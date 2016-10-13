@@ -26,5 +26,14 @@ Simple web-application which describe relationships between books and authors.
  - Libraries (xUnit, Unit Test) for unit and integrations tests still do not support newest .net core 1.0. ([xUnit](http://xunit.github.io/docs/getting-started-dotnet-core.html)). Without tests :(
  - Module for angular ([angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)) has issue with event (onUnselectAll), it does not fire. It is to late to search new one :( but others works fine :)
 
-## Other
+## Other:
  - Only 'jpg' images are supported.
+
+## Future improvements:
+ - Separate images to different table in database with type and name.
+ - Extend web error codes.
+ - Web improvements: concatinations, minifications js & css, use less preprocessor.
+ - Move from Angular 1.5 to 2.0 (but it is disputable issue according to too new and "wet" technology as well as ASP.NET Core).
+ - Add test to back-end and frond-end.
+ - I would be glad to use Angular Material insted of bootstrap (or with).
+ 
