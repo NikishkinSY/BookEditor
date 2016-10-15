@@ -1,8 +1,11 @@
-﻿namespace BookEditor_Repository
+﻿using System.Threading.Tasks;
+
+namespace BookEditor_Repository
 {
     public interface IUnitOfWork
     {
-        void Commit();
+        int Commit();
+        Task<int> CommitAsync();
         //here we need to add rollback
     }
 }

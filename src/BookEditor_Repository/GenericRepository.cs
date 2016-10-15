@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using BookEditor_Model.Entities;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace BookEditor_Repository
 {
@@ -17,8 +19,12 @@ namespace BookEditor_Repository
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>();
-            return query;
+            return _context.Set<TEntity>();
+        }
+
+        public virtual Task<List<TEntity>> GetAllAsync()
+        {
+            return _context.Set<TEntity>().ToListAsync();
         }
 
         public virtual TEntity GetById(int id)
@@ -26,10 +32,19 @@ namespace BookEditor_Repository
             return _context.Set<TEntity>().First(x => x.Id == id);
         }
 
+        public virtual Task<TEntity> GetByIdAsync(int id)
+        {
+            return _context.Set<TEntity>().FirstAsync(x => x.Id == id);
+        }
+
         public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>().Where(predicate);
-            return query;
+            return _context.Set<TEntity>().Where(predicate);
+        }
+
+        public async virtual Task<List<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
         public virtual int Add(TEntity entity)
@@ -53,9 +68,14 @@ namespace BookEditor_Repository
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Commit()
+        public virtual int Commit()
         {
-            _context.SaveChanges();
+            return _context.SaveChanges();
+        }
+
+        public virtual Task<int> CommitAsync()
+        {
+            return _context.SaveChangesAsync();
         }
     }
 }

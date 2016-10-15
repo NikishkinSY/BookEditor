@@ -34,7 +34,7 @@ namespace BookEditor_Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<BookViewModel>> Get()
         {
-            return await Task.Run(() => { return Mapper.Map<IEnumerable<BookViewModel>>(_bookRepository.GetAll()); });
+            return Mapper.Map<IEnumerable<BookViewModel>>(await _bookRepository.GetAllAsync());
         }
 
         [HttpPost]
@@ -42,12 +42,10 @@ namespace BookEditor_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await Task.Run(() => {
-                    var _book = Mapper.Map<Book>(book);
-                    _bookRepository.Add(_book);
-                    _bookRepository.Commit();
-                    return _book.Id;
-                });
+                var _book = Mapper.Map<Book>(book);
+                _bookRepository.Add(_book);
+                await _bookRepository.CommitAsync();
+                return _book.Id;
             }
             else
                 return -1;
@@ -59,11 +57,9 @@ namespace BookEditor_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await Task.Run(() => {
-                    _bookRepository.Edit(Mapper.Map<Book>(book));
-                    _bookRepository.Commit();
-                    return true;
-                });
+                _bookRepository.Edit(Mapper.Map<Book>(book));
+                await _bookRepository.CommitAsync();
+                return true;
             }
             else
                 return false;
@@ -72,10 +68,8 @@ namespace BookEditor_Web.Controllers
         [HttpPost]
         public async Task Delete(int id)
         {
-            await Task.Run(() => {
-                _bookRepository.Delete(id);
-                _bookRepository.Commit();
-            });
+            _bookRepository.Delete(id);
+            await _bookRepository.CommitAsync();
         }
     }
 }
